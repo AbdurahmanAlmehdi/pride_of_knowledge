@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "660345122160",
+    "project_id": "pride-of-knowledge",
+    "storage_bucket": "pride-of-knowledge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660345122160:android:1b8d22f71a05dcac7673b5",
+        "android_client_info": {
+          "package_name": "com.prideofknowledge.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTI-dK-S17CO0ar4OCbGqNwhDFo5hIWwk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
