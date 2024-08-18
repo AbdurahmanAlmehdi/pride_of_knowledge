@@ -14,7 +14,7 @@ class Course {
   final int timesBought;
   final String courseImage;
   final String categoryId;
-  final DateTime createdAt;
+  final String createdAt;
 
   Course(
       {required this.courseId,
@@ -30,17 +30,18 @@ class Course {
       required this.timesBought,
       required this.courseImage});
 
+//Review to make improvements
   Course.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
       : courseId = snapshot.id,
-        createdAt = snapshot.data()[createdAtFieldName],
-        categoryId = snapshot.data()[categoryIdFieldName],
-        creatorId = snapshot.data()[creatorIdFieldName],
-        title = snapshot.data()[titleFieldName] as String,
-        currency = snapshot.data()[currencyFieldName] as String,
-        description = snapshot.data()[descriptionFieldName] as String,
-        courseImage = snapshot.data()[courseImageFieldName] as String,
-        rating = snapshot.data()[ratingFieldName] as double,
-        price = snapshot.data()[priceFieldName] as int,
-        timesBought = snapshot.data()[timesBoughtFieldName] as int,
-        isLiked = snapshot.data()[isLikedFieldName];
+        createdAt = snapshot.data()[createdAtFieldName] ?? '',
+        categoryId = snapshot.data()[categoryIdFieldName] ?? '',
+        creatorId = snapshot.data()[creatorIdFieldName] ?? '',
+        title = snapshot.data()[titleFieldName] ?? '',
+        currency = snapshot.data()[currencyFieldName] ?? '',
+        description = snapshot.data()[descriptionFieldName] ?? '',
+        courseImage = snapshot.data()[courseImageFieldName] ?? '',
+        rating = snapshot.data()[ratingFieldName] ?? 5.0,
+        price = snapshot.data()[priceFieldName] ?? 0,
+        timesBought = snapshot.data()[timesBoughtFieldName] ?? 0,
+        isLiked = snapshot.data()[isLikedFieldName] ?? false;
 }

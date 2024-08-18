@@ -19,12 +19,33 @@ class Creator {
       required this.specialty,
       required this.facebookLink});
 
-  Creator.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
-      : creatorId = snapshot.id,
-        name = snapshot.data()[nameFieldName] as String,
-        specialty = snapshot.data()[specialtyFieldName] as String,
-        facebookLink = snapshot.data()[facebookLinkFieldName] as String,
-        image = snapshot.data()[imageFieldName] as String,
-        rating = snapshot.data()[ratingFieldName] as double,
-        coursesCreated = snapshot.data()[coursesCreatedFieldName] as int;
+  static Creator empty() {
+    return Creator(
+      rating: 0,
+      creatorId: '',
+      coursesCreated: 0,
+      image: '',
+      name: '',
+      specialty: '',
+      facebookLink: '',
+    );
+  }
+
+  factory Creator.fromSnapshot(
+      QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
+    final doc = snapshot.data();
+    if (doc.isNotEmpty) {
+      return Creator(
+        creatorId: snapshot.id,
+        rating: doc[ratingFieldName] ?? 5.0,
+        coursesCreated: doc[coursesCreatedFieldName] ?? 0,
+        image: doc[imageFieldName] ?? '',
+        name: doc[nameFieldName] ?? 'Unknown',
+        specialty: doc[specialtyFieldName] ?? 'none',
+        facebookLink: doc[facebookLinkFieldName] ?? 'null',
+      );
+    } else {
+      return Creator.empty();
+    }
+  }
 }

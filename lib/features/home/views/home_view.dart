@@ -2,28 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/navigation_consts.dart';
 import 'package:prideofknowledge/constants/sizes.dart';
-import 'package:prideofknowledge/data/cloud/firebase_cloud_storage.dart';
-import 'package:prideofknowledge/data/dummy/courses_dummy.dart';
-import 'package:prideofknowledge/features/home/services/providers/all_courses_provider.dart';
+
+import 'package:prideofknowledge/data/models/category.dart';
+import 'package:prideofknowledge/data/models/course.dart';
+import 'package:prideofknowledge/data/models/creator.dart';
+
 import 'package:prideofknowledge/features/home/services/providers/nav_provider.dart';
 import 'package:prideofknowledge/features/home/views/widgets/carousel_slide.dart';
-import 'package:prideofknowledge/features/home/views/widgets/course_preview_list.dart';
-import 'package:prideofknowledge/features/home/views/widgets/courses_list.dart';
-import 'package:prideofknowledge/features/home/views/widgets/featured_courses.dart';
+import 'package:prideofknowledge/features/home/views/widgets/horizontal_courses_list.dart';
+import 'package:prideofknowledge/features/home/views/widgets/horizontal_categories_view.dart';
+import 'package:prideofknowledge/features/home/views/widgets/vertical_courses_list.dart';
 import 'package:prideofknowledge/features/home/views/widgets/instructor_preview_list.dart';
+import 'package:prideofknowledge/utilities/dialogs/show_error_dialog.dart';
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
+import 'package:prideofknowledge/utilities/helper/loading/loading.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 
 //TODO Make sure if creators/courses are less than a number make them only show the number of courses/creators in the listviewBuilder
-class HomeView extends ConsumerWidget {
+//TODO Make Custom Widget to Show See All Row
+//TODO Deal with the .when
+class HomeView extends StatelessWidget {
+  final List<Creator> creators;
+  final List<Category> categories;
+  final AsyncValue<Iterable<Course>> courses;
+
   const HomeView({
     super.key,
+    required this.creators,
+    required this.categories,
+    required this.courses,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final screenWidth = AHelperFunctions.screenWidth(context);
-    final courses = ref.watch(allCoursesProvider);
 
     return CustomScrollView(
       slivers: <Widget>[
@@ -37,6 +49,7 @@ class HomeView extends ConsumerWidget {
                 height: 220,
                 child: PageView(
                   children: const [
+                    // TODO Show Different Images
                     CarouselSlide(),
                     CarouselSlide(),
                     CarouselSlide(),
@@ -55,23 +68,30 @@ class HomeView extends ConsumerWidget {
                       'Categories',
                       style: ATextTheme.bigSubHeading,
                     ),
-                    TextButton(
-                      onPressed: () {
-                        ref
-                            .read(navigationProvider.notifier)
-                            .setNavScreen(ANavigationIndex.categoriesViewIndex);
+                    Consumer(
+                      builder: (context, ref, child) {
+                        return TextButton(
+                          onPressed: () {
+                            // TODO Make Sure this works
+                            ref.read(navigationProvider.notifier).setNavScreen(
+                                ANavigationIndex.categoriesViewIndex);
+                          },
+                          child: Text(
+                            'See All',
+                            style: ATextTheme.mediumSubHeading,
+                          ),
+                        );
                       },
-                      child: Text(
-                        'See All',
-                        style: ATextTheme.mediumSubHeading,
-                      ),
-                    ),
+                    )
                   ],
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 55,
-                child: CategoriesList(),
+                //TODO update categories list with new data provider
+                child: HorizontalCategoriesList(
+                  categories: categories,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -96,24 +116,26 @@ class HomeView extends ConsumerWidget {
                 height: 200,
                 child: courses.when(
                   data: (courses) {
+                    LoadingScreen().hide;
                     if (courses.isEmpty) {
                       return const Text(
-                        'No Couses Availible',
+                        'No Courses Availible',
                       );
                     } else {
-                      return CoursePreviewList(
+                      return HorizontalCourseView(
                         courses: courses,
                         screenWidth: screenWidth,
                       );
                     }
                   },
                   error: (error, stackTrace) {
-                    return const Text(
-                      'No Couses Availible',
-                    );
+                    LoadingScreen().hide;
+                    showErrorDialog(context, 'Error Retrieving Courses');
+                    return Container();
                   },
                   loading: () {
-                    return const Center(child: CircularProgressIndicator());
+                    LoadingScreen().show(context: context, text: 'Loading...');
+                    return Container();
                   },
                 ),
               ),
@@ -136,9 +158,12 @@ class HomeView extends ConsumerWidget {
                   ],
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 100,
-                child: InstructorsPreviewList(),
+                //TODO Update this with new data provider
+                child: HorizontalCreatorsList(
+                  creators: creators,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -162,28 +187,32 @@ class HomeView extends ConsumerWidget {
             ],
           ),
         ),
-        SliverToBoxAdapter(
-          child: courses.when(
-            data: (courses) {
-              if (courses.isEmpty) {
-                return const Text(
-                  'No Couses Availible',
-                );
-              } else {
-                return FeaturedCourses(
-                  courses: courses,
-                );
-              }
-            },
-            error: (error, stackTrace) {
-              return const Text(
-                'No Couses Availible',
+        courses.when(
+          //TODO Update this to use Loading and error screen
+          data: (courses) {
+            if (courses.isEmpty) {
+              return const SliverToBoxAdapter(
+                child: Text(
+                  'No Courses Availible',
+                ),
               );
-            },
-            loading: () {
-              return const Center(child: CircularProgressIndicator());
-            },
-          ),
+            } else {
+              return VerticalCoursesList(
+                courses: courses,
+              );
+            }
+          },
+          error: (error, stackTrace) {
+            return const SliverToBoxAdapter(
+              child: Text(
+                'No Courses Availible',
+              ),
+            );
+          },
+          loading: () {
+            return const SliverToBoxAdapter(
+                child: Center(child: CircularProgressIndicator()));
+          },
         ),
       ],
     );

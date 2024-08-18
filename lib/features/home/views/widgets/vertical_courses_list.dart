@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
-import 'package:prideofknowledge/constants/navigation_consts.dart';
-
 import 'package:prideofknowledge/data/models/course.dart';
-import 'package:prideofknowledge/features/home/services/providers/current_course_provider.dart';
-import 'package:prideofknowledge/features/home/services/providers/nav_provider.dart';
+import 'package:prideofknowledge/features/content/course_detail_view.dart';
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 
-class FeaturedCourses extends ConsumerWidget {
-  const FeaturedCourses({
+class VerticalCoursesList extends ConsumerWidget {
+  const VerticalCoursesList({
     super.key,
     required this.courses,
   });
@@ -25,12 +22,14 @@ class FeaturedCourses extends ConsumerWidget {
         (context, index) {
           return InkWell(
             onTap: () {
-              ref
-                  .read(currentCourseProvider.notifier)
-                  .currentCourse(courses.elementAt(index));
-              ref
-                  .read(navigationProvider.notifier)
-                  .setPageScreen(ANavigationIndex.courseDetailsViewIndex);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return CourseDetailView(course: courses.elementAt(index));
+                  },
+                ),
+              );
             },
             child: Padding(
               padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),

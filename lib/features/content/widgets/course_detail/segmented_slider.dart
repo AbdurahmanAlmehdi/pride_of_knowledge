@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
-import 'package:prideofknowledge/features/home/services/providers/current_course_provider.dart';
+
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 
 class SegmentedSlider extends ConsumerWidget {
@@ -74,3 +74,9 @@ class SegmentedSlider extends ConsumerWidget {
     );
   }
 }
+
+final sliderProvider = StateProvider<bool>(
+  (ref) {
+    return false;
+  },
+);

@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
-import 'package:prideofknowledge/constants/navigation_consts.dart';
-
 import 'package:prideofknowledge/data/models/course.dart';
-import 'package:prideofknowledge/features/home/services/providers/current_course_provider.dart';
-import 'package:prideofknowledge/features/home/services/providers/nav_provider.dart';
+import 'package:prideofknowledge/features/content/course_detail_view.dart';
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 
-class CoursePreviewList extends ConsumerWidget {
-  const CoursePreviewList({
+class HorizontalCourseView extends ConsumerWidget {
+  const HorizontalCourseView({
     super.key,
     required this.screenWidth,
     required this.courses,
@@ -27,12 +24,11 @@ class CoursePreviewList extends ConsumerWidget {
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
-            ref
-                .read(currentCourseProvider.notifier)
-                .currentCourse(courses.elementAt(index));
-            ref
-                .read(navigationProvider.notifier)
-                .setPageScreen(ANavigationIndex.courseDetailsViewIndex);
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return CourseDetailView(course: courses.elementAt(index));
+              },
+            ));
           },
           child: SizedBox(
             width: screenWidth * 0.5,
@@ -57,31 +53,37 @@ class CoursePreviewList extends ConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          width: 60,
-                          height: 20,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: AColors.primary),
-                          child: Text(
-                            //TODO get creator data
-                            courses.elementAt(index).creatorId,
-                            textAlign: TextAlign.center,
-                            style: ATextTheme.bigBody
-                                .copyWith(color: AColors.white),
+                        Flexible(
+                          child: Container(
+                            height: 20,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: AColors.primary),
+                            child: Text(
+                              //TODO get creator data
+                              courses.elementAt(index).creatorId,
+                              textAlign: TextAlign.center,
+                              style: ATextTheme.bigBody
+                                  .copyWith(color: AColors.white),
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ),
-                        Container(
-                          width: 60,
-                          height: 20,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: AColors.secondary),
-                          child: Text(
-                            '${courses.elementAt(index).price.toString()}${courses.elementAt(index).currency}',
-                            textAlign: TextAlign.center,
-                            style: ATextTheme.bigBody
-                                .copyWith(color: AColors.white),
+                        const SizedBox(
+                          width: 50,
+                        ),
+                        IntrinsicWidth(
+                          child: Container(
+                            height: 20,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: AColors.secondary),
+                            child: Text(
+                              '${courses.elementAt(index).price.toString()}${courses.elementAt(index).currency}',
+                              textAlign: TextAlign.center,
+                              style: ATextTheme.bigBody
+                                  .copyWith(color: AColors.white),
+                            ),
                           ),
                         ),
                       ],

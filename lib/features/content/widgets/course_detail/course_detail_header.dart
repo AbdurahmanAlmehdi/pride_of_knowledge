@@ -26,7 +26,7 @@ class CourseDetailHeader extends ConsumerWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image(
-                image: AssetImage(course.courseImage),
+                image: NetworkImage(course.courseImage),
                 fit: BoxFit.contain,
               ),
             ),
@@ -72,46 +72,51 @@ class CourseDetailHeader extends ConsumerWidget {
               ),
             ),
             Positioned(
-                top: 210,
-                left: 15,
-                right: 15,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IntrinsicWidth(
-                      child: Container(
-                        height: 30,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: AColors.primary),
-                        child: Center(
-                          child: Text(
-                            'By: ${AHelperFunctions.getFirstWord(course.creatorId)}     ',
-                            textAlign: TextAlign.center,
-                            style: ATextTheme.smallSubHeading
-                                .copyWith(color: AColors.white, fontSize: 18),
-                          ),
+              top: 210,
+              left: 15,
+              right: 15,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Container(
+                      height: 30,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: AColors.primary),
+                      child: Center(
+                        child: Text(
+                          'By: ${AHelperFunctions.getFirstWord(course.creatorId)}     ',
+                          textAlign: TextAlign.center,
+                          style: ATextTheme.smallSubHeading
+                              .copyWith(color: AColors.white, fontSize: 18),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
-                    IntrinsicWidth(
-                      child: Container(
-                        height: 30,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: AColors.secondary),
-                        child: Center(
-                          child: Text(
-                            '${course.price.toString()}${course.currency}      ',
-                            textAlign: TextAlign.center,
-                            style: ATextTheme.smallSubHeading
-                                .copyWith(color: AColors.white, fontSize: 18),
-                          ),
+                  ),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  IntrinsicWidth(
+                    child: Container(
+                      height: 30,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: AColors.secondary),
+                      child: Center(
+                        child: Text(
+                          '${course.price.toString()}${course.currency}      ',
+                          textAlign: TextAlign.center,
+                          style: ATextTheme.smallSubHeading
+                              .copyWith(color: AColors.white, fontSize: 18),
                         ),
                       ),
                     ),
-                  ],
-                )),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

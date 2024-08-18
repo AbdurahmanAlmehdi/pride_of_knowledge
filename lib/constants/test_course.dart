@@ -1,5 +1,6 @@
 import 'package:prideofknowledge/data/models/course.dart';
 
+//TODO Delete
 final testCourse = Course(
   courseId: 'course10',
   title: 'AWS Certified Solutions Architect',
@@ -13,5 +14,5 @@ final testCourse = Course(
   timesBought: 290,
   courseImage: 'https://example.com/aws.jpg',
   categoryId: 'category6',
-  createdAt: DateTime.now().subtract(const Duration(days: 110)),
+  createdAt: '',
 );

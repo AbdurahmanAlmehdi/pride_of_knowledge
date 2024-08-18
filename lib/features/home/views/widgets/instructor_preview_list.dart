@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:prideofknowledge/constants/colors.dart';
-
-import 'package:prideofknowledge/data/dummy/creator_dummy.dart';
+import 'package:prideofknowledge/data/models/creator.dart';
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 
-class InstructorsPreviewList extends StatelessWidget {
-  const InstructorsPreviewList({
+class HorizontalCreatorsList extends StatelessWidget {
+  final List<Creator> creators;
+
+  const HorizontalCreatorsList({
     super.key,
+    required this.creators,
   });
 
   @override
@@ -38,7 +40,7 @@ class InstructorsPreviewList extends StatelessWidget {
                   ),
                   child: ClipOval(
                     child: Image(
-                      image: AssetImage(dummyCreators[index].image),
+                      image: AssetImage(creators[index].image),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -50,7 +52,7 @@ class InstructorsPreviewList extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                       color: AColors.primary),
                   child: Text(
-                    '${AHelperFunctions.getFirstWord(dummyCreators[index].name)}   ',
+                    '${AHelperFunctions.getFirstWord(creators[index].name)}   ',
                     textAlign: TextAlign.center,
                     style: ATextTheme.bigBody.copyWith(color: AColors.white),
                   ),

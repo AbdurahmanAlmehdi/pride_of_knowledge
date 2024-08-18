@@ -16,6 +16,7 @@ class Video {
     required this.videoUrl,
   });
 
+// TODO Improvements needed
   Video.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
       : sectionId = snapshot.data()[sectionIdFieldName],
         title = snapshot.data()[titleFieldName] as String,

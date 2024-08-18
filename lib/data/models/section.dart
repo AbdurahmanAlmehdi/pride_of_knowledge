@@ -14,6 +14,7 @@ class Section {
     required this.title,
   });
 
+// TODO Improvements needed
   Section.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
       : sectionId = snapshot.id,
         courseId = snapshot.data()[courseIdFieldName],

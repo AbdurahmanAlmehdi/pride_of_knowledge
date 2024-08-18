@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:prideofknowledge/constants/colors.dart';
-import 'package:prideofknowledge/data/dummy/categories_dummy.dart';
+import 'package:prideofknowledge/data/models/category.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 
 class CategoriesView extends StatelessWidget {
-  const CategoriesView({super.key});
+  final List<Category> categories;
+
+  const CategoriesView({super.key, required this.categories});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class CategoriesView extends StatelessWidget {
             children: [
               Image.network(categories[index].image),
               Text(
-                categories[index].category,
+                categories[index].name,
                 style: ATextTheme.mediumSubHeading
                     .copyWith(color: AColors.primary),
               )

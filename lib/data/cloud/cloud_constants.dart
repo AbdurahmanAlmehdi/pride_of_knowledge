@@ -18,7 +18,7 @@ const descriptionFieldName = 'description';
 const isLikedFieldName = 'is_liked';
 const timesBoughtFieldName = 'times_bought';
 const courseImageFieldName = 'course_image';
-const createdAtFieldName = 'course_at';
+const createdAtFieldName = 'created_at';
 
 // Creator Doc Fields
 
@@ -46,3 +46,9 @@ const coursesCollection = 'courses';
 const sectionsCollection = 'sections';
 const videosCollection = 'videos';
 const creatorsCollection = 'creators';
+const categoriesCollection = 'categories';
+
+//Categories Doc Field
+const parentIdFieldName = 'parent_id';
+const isMainFieldName = 'is_main';
+const iconFieldName = 'icon';

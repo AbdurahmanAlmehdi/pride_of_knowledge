@@ -1,5 +1,6 @@
 import 'package:prideofknowledge/data/models/creator.dart';
 
+//TODO Delete
 final testCreator = Creator(
   image: 'assets/images/home/profile.jpeg',
   name: 'Test Creator',

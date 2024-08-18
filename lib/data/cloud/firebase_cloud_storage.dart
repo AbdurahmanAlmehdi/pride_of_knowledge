@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prideofknowledge/data/models/course.dart';
-import 'package:prideofknowledge/data/models/creator.dart';
-import 'package:prideofknowledge/data/models/section.dart';
-import 'package:prideofknowledge/data/models/video.dart';
 import 'package:prideofknowledge/features/authentication/services/auth/auth_user.dart';
 import 'package:prideofknowledge/data/cloud/cloud_constants.dart';
 import 'package:prideofknowledge/data/cloud/cloud_exceptions.dart';
