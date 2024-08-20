@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
-import 'package:prideofknowledge/constants/navigation_consts.dart';
 import 'package:prideofknowledge/data/models/course.dart';
-import 'package:prideofknowledge/features/home/services/providers/nav_provider.dart';
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 
@@ -41,16 +39,16 @@ class CourseDetailHeader extends ConsumerWidget {
                     width: 45,
                     height: 45,
                     decoration: BoxDecoration(
+                      // border: Border.all(color: AColors.black),
                       color: AColors.white,
                       borderRadius: BorderRadius.circular(22.5),
                     ),
                     child: IconButton(
                       onPressed: () {
-                        ref
-                            .read(navigationProvider.notifier)
-                            .setPageScreen(ANavigationIndex.homeViewIndex);
+                        Navigator.of(context).pop();
                       },
                       icon: const Icon(Icons.arrow_back_ios_outlined),
+                      color: AColors.primary,
                       iconSize: 20,
                     ),
                   ),
@@ -58,12 +56,14 @@ class CourseDetailHeader extends ConsumerWidget {
                     width: 45,
                     height: 45,
                     decoration: BoxDecoration(
+                      // border: Border.all(color: AColors.black),
                       color: AColors.white,
                       borderRadius: BorderRadius.circular(22.5),
                     ),
                     child: IconButton(
                       onPressed: () {},
-                      icon: const Icon(Icons.favorite_border),
+                      icon: const Icon(Icons.favorite),
+                      color: AColors.primary,
                       // color: Colors.red,
                       iconSize: 20,
                     ),

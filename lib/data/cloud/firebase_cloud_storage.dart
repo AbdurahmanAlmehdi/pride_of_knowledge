@@ -26,7 +26,7 @@ class FirebaseCloudStorage {
 
   void createCourse(Course course) async {
     try {
-      await users.doc().set({
+      await courses.doc().set({
         categoryIdFieldName: course.categoryId,
         creatorIdFieldName: course.creatorId,
         titleFieldName: course.title,

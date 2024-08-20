@@ -1,7 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:prideofknowledge/data/dummy/courses_dummy.dart';
-
 import 'package:prideofknowledge/features/authentication/services/auth/auth_provider.dart';
 import 'package:prideofknowledge/features/authentication/services/auth/auth_user.dart';
 import 'package:prideofknowledge/features/authentication/services/bloc/auth_event.dart';

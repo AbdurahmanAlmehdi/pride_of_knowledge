@@ -16,7 +16,7 @@ class HorizontalCreatorsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: 6,
+      itemCount: creators.length >= 6 ? 6 : creators.length,
       itemBuilder: (context, index) {
         return SizedBox(
           width: 80,
@@ -40,7 +40,7 @@ class HorizontalCreatorsList extends StatelessWidget {
                   ),
                   child: ClipOval(
                     child: Image(
-                      image: AssetImage(creators[index].image),
+                      image: NetworkImage(creators[index].image),
                       fit: BoxFit.contain,
                     ),
                   ),

@@ -30,6 +30,21 @@ class Course {
       required this.timesBought,
       required this.courseImage});
 
+  static Course empty() => Course(
+        courseId: '',
+        categoryId: '',
+        createdAt: '',
+        creatorId: '',
+        title: '',
+        price: 0,
+        currency: '',
+        rating: 0.0,
+        description: '',
+        isLiked: false,
+        timesBought: 0,
+        courseImage: '',
+      );
+
 //Review to make improvements
   Course.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
       : courseId = snapshot.id,
@@ -40,8 +55,8 @@ class Course {
         currency = snapshot.data()[currencyFieldName] ?? '',
         description = snapshot.data()[descriptionFieldName] ?? '',
         courseImage = snapshot.data()[courseImageFieldName] ?? '',
-        rating = snapshot.data()[ratingFieldName] ?? 5.0,
-        price = snapshot.data()[priceFieldName] ?? 0,
+        rating = (snapshot.data()[ratingFieldName] as num).toDouble(),
+        price = (snapshot.data()[priceFieldName] as num).toInt(),
         timesBought = snapshot.data()[timesBoughtFieldName] ?? 0,
         isLiked = snapshot.data()[isLikedFieldName] ?? false;
 }

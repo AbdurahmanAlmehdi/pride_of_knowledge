@@ -17,6 +17,8 @@ final allCreatorsProvider = FutureProvider<List<Creator>>(
       return data;
     } on FirebaseException catch (e) {
       throw e.code;
+    } catch (_) {
+      throw 'Error Occured';
     }
   },
 );

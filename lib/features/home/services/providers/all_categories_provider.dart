@@ -16,5 +16,7 @@ final allCategoriesProvider = FutureProvider<List<Category>>((ref) async {
     return data;
   } on FirebaseException catch (e) {
     throw e.code;
+  } catch (_) {
+    throw 'Error Occured';
   }
 });

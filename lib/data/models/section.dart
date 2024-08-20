@@ -14,10 +14,21 @@ class Section {
     required this.title,
   });
 
-// TODO Improvements needed
-  Section.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
-      : sectionId = snapshot.id,
-        courseId = snapshot.data()[courseIdFieldName],
-        sectionOrder = snapshot.data()[sectionOrderFieldName] as int,
-        title = snapshot.data()[titleFieldName] as String;
+  static Section empty() =>
+      Section(sectionId: '', courseId: '', sectionOrder: 0, title: '');
+
+  factory Section.fromSnapshot(
+      QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
+    if (snapshot.data().isNotEmpty) {
+      final data = snapshot.data();
+      return Section(
+        sectionId: snapshot.id,
+        courseId: data[courseIdFieldName] ?? '',
+        sectionOrder: data[sectionOrderFieldName] ?? 0,
+        title: data[titleFieldName] ?? '',
+      );
+    } else {
+      return Section.empty();
+    }
+  }
 }

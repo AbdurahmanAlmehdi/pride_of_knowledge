@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
+import 'package:prideofknowledge/constants/string_to_icon.dart';
 import 'package:prideofknowledge/data/models/category.dart';
 
 import 'package:prideofknowledge/features/home/services/providers/all_categories_provider.dart';
@@ -26,9 +27,10 @@ class HorizontalCategoriesList extends ConsumerWidget {
         LoadingScreen().hide;
         return ListView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          itemCount: 5,
+          itemCount: data.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
+            final category = data[index];
             return InkWell(
               onTap: () {},
               borderRadius: BorderRadius.circular(30),
@@ -39,9 +41,9 @@ class HorizontalCategoriesList extends ConsumerWidget {
                     color: Colors.transparent),
                 child: ListTile(
                   horizontalTitleGap: 5,
-                  leading: Image.network(data[index].icon),
+                  leading: Icon(StringToIcon.toIcon(category.icon)),
                   title: Text(
-                    data[index].name,
+                    category.name,
                     style: ATextTheme.smallSubHeading
                         .copyWith(color: AColors.textPrimary),
                   ),
@@ -57,7 +59,9 @@ class HorizontalCategoriesList extends ConsumerWidget {
         return Container();
       },
       loading: () {
-        LoadingScreen().show(context: context, text: 'Loading...');
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          LoadingScreen().show(context: context, text: 'Loading...');
+        });
         return Container();
       },
     );

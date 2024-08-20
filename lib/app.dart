@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:prideofknowledge/data/cloud/firebase_cloud_storage.dart';
-import 'package:prideofknowledge/data/dummy/courses_dummy.dart';
 import 'package:prideofknowledge/features/authentication/services/bloc/auth_bloc.dart';
 import 'package:prideofknowledge/features/authentication/services/bloc/auth_event.dart';
 import 'package:prideofknowledge/features/authentication/services/bloc/auth_state.dart';

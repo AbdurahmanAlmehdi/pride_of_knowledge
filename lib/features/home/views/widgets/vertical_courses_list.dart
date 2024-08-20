@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
 import 'package:prideofknowledge/data/models/course.dart';
 import 'package:prideofknowledge/features/content/course_detail_view.dart';
+
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 
@@ -64,6 +65,7 @@ class VerticalCoursesList extends ConsumerWidget {
                               child: Text(
                                 courses.elementAt(index).title,
                                 softWrap: true,
+                                maxLines: 1,
                                 overflow: TextOverflow.visible,
                                 style: ATextTheme.smallSubHeading.copyWith(
                                   color: AColors.textPrimary,
@@ -76,6 +78,7 @@ class VerticalCoursesList extends ConsumerWidget {
                                 // TODO Change to creator name
                                 "Created By: ${courses.elementAt(index).creatorId}",
                                 softWrap: true,
+                                maxLines: 2,
                                 overflow: TextOverflow.visible,
                                 style: ATextTheme.bigBody.copyWith(
                                   color: AColors.textPrimary,

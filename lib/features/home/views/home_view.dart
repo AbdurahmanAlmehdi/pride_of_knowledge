@@ -12,7 +12,7 @@ import 'package:prideofknowledge/features/home/views/widgets/carousel_slide.dart
 import 'package:prideofknowledge/features/home/views/widgets/horizontal_courses_list.dart';
 import 'package:prideofknowledge/features/home/views/widgets/horizontal_categories_view.dart';
 import 'package:prideofknowledge/features/home/views/widgets/vertical_courses_list.dart';
-import 'package:prideofknowledge/features/home/views/widgets/instructor_preview_list.dart';
+import 'package:prideofknowledge/features/home/views/widgets/horizontal_creator_list.dart';
 import 'package:prideofknowledge/utilities/dialogs/show_error_dialog.dart';
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 import 'package:prideofknowledge/utilities/helper/loading/loading.dart';
@@ -72,7 +72,6 @@ class HomeView extends StatelessWidget {
                       builder: (context, ref, child) {
                         return TextButton(
                           onPressed: () {
-                            // TODO Make Sure this works
                             ref.read(navigationProvider.notifier).setNavScreen(
                                 ANavigationIndex.categoriesViewIndex);
                           },
@@ -88,7 +87,6 @@ class HomeView extends StatelessWidget {
               ),
               SizedBox(
                 height: 55,
-                //TODO update categories list with new data provider
                 child: HorizontalCategoriesList(
                   categories: categories,
                 ),
@@ -134,7 +132,10 @@ class HomeView extends StatelessWidget {
                     return Container();
                   },
                   loading: () {
-                    LoadingScreen().show(context: context, text: 'Loading...');
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      LoadingScreen()
+                          .show(context: context, text: 'Loading...');
+                    });
                     return Container();
                   },
                 ),

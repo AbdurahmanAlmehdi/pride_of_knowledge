@@ -34,6 +34,7 @@ class Category {
         name: doc[nameFieldName] ?? 'Unknown',
         icon: doc[iconFieldName] ?? '',
         image: doc[imageFieldName] ?? '',
+        parentId: doc[parentIdFieldName] ?? '',
       );
     } else {
       return Category.empty();

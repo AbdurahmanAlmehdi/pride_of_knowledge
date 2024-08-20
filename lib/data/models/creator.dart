@@ -37,7 +37,7 @@ class Creator {
     if (doc.isNotEmpty) {
       return Creator(
         creatorId: snapshot.id,
-        rating: doc[ratingFieldName] ?? 5.0,
+        rating: (doc[ratingFieldName] as num).toDouble(),
         coursesCreated: doc[coursesCreatedFieldName] ?? 0,
         image: doc[imageFieldName] ?? '',
         name: doc[nameFieldName] ?? 'Unknown',

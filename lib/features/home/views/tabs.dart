@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
 import 'package:prideofknowledge/constants/image_strings.dart';
 import 'package:prideofknowledge/constants/navigation_consts.dart';
-import 'package:prideofknowledge/data/cloud/cloud_constants.dart';
 import 'package:prideofknowledge/data/models/category.dart';
 import 'package:prideofknowledge/data/models/creator.dart';
 import 'package:prideofknowledge/features/home/services/providers/all_courses_provider.dart';
@@ -25,9 +24,9 @@ class TabsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //Firestore data retrieval
-    final data = ref.watch(dataProvider);
-    final List<Category> categories = data[categoriesCollection];
-    final List<Creator> creators = data[creatorsCollection];
+    final data = ref.watch(dataNotifierProvider);
+    final List<Category> categories = data.categories;
+    final List<Creator> creators = data.creators;
     final courses = ref.watch(allCoursesProvider);
 
     //Data State provider
