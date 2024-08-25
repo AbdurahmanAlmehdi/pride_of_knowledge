@@ -127,16 +127,13 @@ class HomeView extends StatelessWidget {
                     }
                   },
                   error: (error, stackTrace) {
-                    LoadingScreen().hide;
                     showErrorDialog(context, 'Error Retrieving Courses');
                     return Container();
                   },
                   loading: () {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      LoadingScreen()
-                          .show(context: context, text: 'Loading...');
-                    });
-                    return Container();
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   },
                 ),
               ),

@@ -3,13 +3,11 @@ import 'package:prideofknowledge/constants/colors.dart';
 import 'package:prideofknowledge/constants/image_strings.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 
-class CoursesView extends StatelessWidget {
-  const CoursesView({super.key});
+class OwnedCoursesView extends StatelessWidget {
+  const OwnedCoursesView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final favoriteCourses = [];
-    if (favoriteCourses.isNotEmpty) {}
     return Center(
       child: Column(
         children: [

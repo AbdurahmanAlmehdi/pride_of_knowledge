@@ -1,7 +1,7 @@
 import 'package:prideofknowledge/data/models/course.dart';
 
 //TODO Delete
-final testCourse = Course(
+const testCourse = Course(
   courseId: 'course10',
   title: 'AWS Certified Solutions Architect',
   price: 230,
