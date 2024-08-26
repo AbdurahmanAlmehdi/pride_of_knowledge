@@ -19,7 +19,7 @@ class HorizontalCourseView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListView.builder(
-      itemCount: courses.length > 4 ? 4 : courses.length,
+      itemCount: courses.length > 8 ? 8 : courses.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
         return InkWell(

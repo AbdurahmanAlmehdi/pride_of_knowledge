@@ -4,10 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:prideofknowledge/app.dart';
 import 'package:prideofknowledge/constants/routes.dart';
+import 'package:prideofknowledge/data/models/course.dart';
 
 import 'package:prideofknowledge/features/authentication/services/auth/auth_service.dart';
 
 import 'package:prideofknowledge/features/authentication/services/bloc/auth_bloc.dart';
+import 'package:prideofknowledge/features/content/course_detail_view.dart';
+import 'package:prideofknowledge/features/home/views/courses_list_view.dart';
 import 'package:prideofknowledge/features/home/views/profile_view.dart';
 
 import 'package:prideofknowledge/utilities/theme/theme.dart';
@@ -23,6 +26,23 @@ void main() async {
       child: ProviderScope(
         child: MaterialApp(
           theme: ATheme.lightTheme,
+          onGenerateRoute: (settings) {
+            if (settings.name == coursesDetailRoute) {
+              final args = settings.arguments as Course;
+              return PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    CourseDetailView(course: args),
+              );
+            } else if (settings.name == coursesListRoute) {
+              final args = settings.arguments as List<Course>;
+              return PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    CoursesListView(courses: args),
+              );
+            } else {
+              return null;
+            }
+          },
           routes: {
             profileRoute: (context) => const ProfileView(),
           },

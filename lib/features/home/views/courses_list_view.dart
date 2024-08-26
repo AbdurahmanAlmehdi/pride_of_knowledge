@@ -16,7 +16,7 @@ class CoursesListView extends StatelessWidget {
   final String? title;
   final bool showAppBar;
   final bool showSearch;
-  final Iterable<Course> courses;
+  final List<Course>? courses;
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +36,21 @@ class CoursesListView extends StatelessWidget {
         child: Column(
           children: [
             showSearch ? const SearchField() : const SizedBox(),
-            Consumer(
-              builder: (context, ref, child) {
-                return ListView.builder(
-                  itemBuilder: (context, index) {
-                    final course = courses.elementAt(index);
-                    return CourseTile(course: course);
-                  },
-                );
-              },
-            )
+            courses == null
+                ? const Center(
+                    child: Text('Error'),
+                  )
+                : Consumer(
+                    builder: (context, ref, child) {
+                      return ListView.builder(
+                        itemCount: courses!.length,
+                        itemBuilder: (context, index) {
+                          final course = courses![index];
+                          return CourseTile(course: course);
+                        },
+                      );
+                    },
+                  ),
           ],
         ),
       ),

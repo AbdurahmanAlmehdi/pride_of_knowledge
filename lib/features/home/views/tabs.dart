@@ -3,11 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
 import 'package:prideofknowledge/constants/image_strings.dart';
 import 'package:prideofknowledge/constants/navigation_consts.dart';
-import 'package:prideofknowledge/data/models/category.dart';
-import 'package:prideofknowledge/data/models/creator.dart';
-import 'package:prideofknowledge/features/home/services/providers/all_courses_provider.dart';
-import 'package:prideofknowledge/features/home/services/providers/data_provider.dart';
-import 'package:prideofknowledge/features/home/services/providers/data_state.dart';
+import 'package:prideofknowledge/features/home/services/controllers/home_controller.dart';
 import 'package:prideofknowledge/features/home/views/categories_view.dart';
 import 'package:prideofknowledge/features/home/views/owned_courses_view.dart';
 import 'package:prideofknowledge/features/home/views/favorites_view.dart';
@@ -15,8 +11,6 @@ import 'package:prideofknowledge/features/home/views/home_view.dart';
 import 'package:prideofknowledge/features/home/services/providers/nav_provider.dart';
 import 'package:prideofknowledge/features/home/views/profile_view.dart';
 import 'package:prideofknowledge/features/home/views/widgets/bottom_nav_bar.dart';
-import 'package:prideofknowledge/utilities/dialogs/show_error_dialog.dart';
-import 'package:prideofknowledge/utilities/helper/loading/loading.dart';
 
 class TabsView extends ConsumerWidget {
   const TabsView({super.key});
@@ -24,31 +18,15 @@ class TabsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //Firestore data retrieval
-    final data = ref.watch(dataNotifierProvider);
-    final List<Category> categories = data.categories;
-    final List<Creator> creators = data.creators;
-    final courses = ref.watch(allCoursesProvider);
-
-    //Data State provider
-    final dataState = ref.watch(dataStateProvider);
+    final categories = ref.watch(mainCategoriesControllerProvider);
+    final creators = ref.watch(topRatedCoursesControllerProvider);
 
     // Navigation providers
     final navIndex = ref.watch(navigationProvider);
     final navNotifier = ref.read(navigationProvider.notifier);
 
-    if (dataState.isLoading) {
-      LoadingScreen().show(context: context, text: 'Loading...');
-    } else {
-      LoadingScreen().hide();
-    }
-
-    if (dataState.isFailed) {
-      showErrorDialog(context, 'Unable to retreive data');
-    }
-
     Widget activeScreen = HomeView(
       creators: creators,
-      courses: courses,
       categories: categories,
     );
     //TODO Say Welcome UserName

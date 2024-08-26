@@ -34,18 +34,20 @@ class HorizontalCategoriesList extends ConsumerWidget {
             return InkWell(
               onTap: () {},
               borderRadius: BorderRadius.circular(30),
-              child: Container(
-                width: 154,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Colors.transparent),
-                child: ListTile(
-                  horizontalTitleGap: 5,
-                  leading: Icon(StringToIcon.toIcon(category.icon)),
-                  title: Text(
-                    category.name,
-                    style: ATextTheme.smallSubHeading
-                        .copyWith(color: AColors.textPrimary),
+              child: IntrinsicWidth(
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.transparent),
+                  child: ListTile(
+                    horizontalTitleGap: 5,
+                    leading: Icon(StringToIcon.toIcon(category.icon)),
+                    title: Text(
+                      category.name,
+                      maxLines: 1,
+                      style: ATextTheme.smallSubHeading
+                          .copyWith(color: AColors.textPrimary),
+                    ),
                   ),
                 ),
               ),

@@ -13,14 +13,13 @@ class VerticalCoursesList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        childCount: courses.length > 5 ? 5 : courses.length,
-        (context, index) {
-          final course = courses.elementAt(index);
-          return CourseTile(course: course);
-        },
-      ),
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: courses.length > 8 ? 8 : courses.length,
+      itemBuilder: (context, index) {
+        final course = courses.elementAt(index);
+        return CourseTile(course: course);
+      },
     );
   }
 }
