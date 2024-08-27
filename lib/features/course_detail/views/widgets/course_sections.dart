@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
 
-import 'package:prideofknowledge/features/content/services/prociders/section_provider.dart';
-import 'package:prideofknowledge/features/content/services/prociders/video_provider.dart';
+import 'package:prideofknowledge/features/course_detail/services/providers/section_provider.dart';
+import 'package:prideofknowledge/features/course_detail/services/providers/video_provider.dart';
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 

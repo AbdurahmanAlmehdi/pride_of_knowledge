@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
 import 'package:prideofknowledge/data/models/course.dart';
-import 'package:prideofknowledge/features/content/course_detail_view.dart';
+import 'package:prideofknowledge/features/course_detail/views/course_detail_view.dart';
+import 'package:prideofknowledge/features/favorites/controllers/favorites_controller.dart';
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 
@@ -85,7 +87,7 @@ class CourseTile extends StatelessWidget {
                         children: [
                           // TODO Change to real minutes
                           Text(
-                            AHelperFunctions.toHours(30),
+                            AHelperFunctions.toHours(course.courseMins),
                             style: ATextTheme.bigBody,
                           ),
                           const Icon(
@@ -115,12 +117,25 @@ class CourseTile extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.favorite_border,
-                          size: 20,
-                        ),
+                      Consumer(
+                        builder: (context, ref, child) {
+                          final favorites =
+                              ref.watch(favoritesControllerProvider);
+                          final isFavorite = favorites.contains(course);
+                          return IconButton(
+                            onPressed: () {
+                              ref
+                                  .read(favoritesControllerProvider.notifier)
+                                  .toggleFavorite(course);
+                            },
+                            icon: Icon(
+                              isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              size: 20,
+                            ),
+                          );
+                        },
                       ),
                       Text(
                         '${course.price.toString()}${course.currency}',

@@ -22,6 +22,9 @@ Course _$CourseFromJson(Map<String, dynamic> json) {
 mixin _$Course {
   String get courseId => throw _privateConstructorUsedError;
   String get categoryId => throw _privateConstructorUsedError;
+  int get courseMins => throw _privateConstructorUsedError;
+  int get numVideos => throw _privateConstructorUsedError;
+  int get numSections => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
   String get creatorId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
@@ -46,6 +49,9 @@ abstract class $CourseCopyWith<$Res> {
   $Res call(
       {String courseId,
       String categoryId,
+      int courseMins,
+      int numVideos,
+      int numSections,
       String createdAt,
       String creatorId,
       String title,
@@ -73,6 +79,9 @@ class _$CourseCopyWithImpl<$Res, $Val extends Course>
   $Res call({
     Object? courseId = null,
     Object? categoryId = null,
+    Object? courseMins = null,
+    Object? numVideos = null,
+    Object? numSections = null,
     Object? createdAt = null,
     Object? creatorId = null,
     Object? title = null,
@@ -93,6 +102,18 @@ class _$CourseCopyWithImpl<$Res, $Val extends Course>
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
+      courseMins: null == courseMins
+          ? _value.courseMins
+          : courseMins // ignore: cast_nullable_to_non_nullable
+              as int,
+      numVideos: null == numVideos
+          ? _value.numVideos
+          : numVideos // ignore: cast_nullable_to_non_nullable
+              as int,
+      numSections: null == numSections
+          ? _value.numSections
+          : numSections // ignore: cast_nullable_to_non_nullable
+              as int,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -147,6 +168,9 @@ abstract class _$$courseImplCopyWith<$Res> implements $CourseCopyWith<$Res> {
   $Res call(
       {String courseId,
       String categoryId,
+      int courseMins,
+      int numVideos,
+      int numSections,
       String createdAt,
       String creatorId,
       String title,
@@ -172,6 +196,9 @@ class __$$courseImplCopyWithImpl<$Res>
   $Res call({
     Object? courseId = null,
     Object? categoryId = null,
+    Object? courseMins = null,
+    Object? numVideos = null,
+    Object? numSections = null,
     Object? createdAt = null,
     Object? creatorId = null,
     Object? title = null,
@@ -192,6 +219,18 @@ class __$$courseImplCopyWithImpl<$Res>
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
+      courseMins: null == courseMins
+          ? _value.courseMins
+          : courseMins // ignore: cast_nullable_to_non_nullable
+              as int,
+      numVideos: null == numVideos
+          ? _value.numVideos
+          : numVideos // ignore: cast_nullable_to_non_nullable
+              as int,
+      numSections: null == numSections
+          ? _value.numSections
+          : numSections // ignore: cast_nullable_to_non_nullable
+              as int,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -242,6 +281,9 @@ class _$courseImpl implements _course {
   const _$courseImpl(
       {required this.courseId,
       required this.categoryId,
+      required this.courseMins,
+      required this.numVideos,
+      required this.numSections,
       required this.createdAt,
       required this.creatorId,
       required this.title,
@@ -260,6 +302,12 @@ class _$courseImpl implements _course {
   final String courseId;
   @override
   final String categoryId;
+  @override
+  final int courseMins;
+  @override
+  final int numVideos;
+  @override
+  final int numSections;
   @override
   final String createdAt;
   @override
@@ -284,7 +332,7 @@ class _$courseImpl implements _course {
 
   @override
   String toString() {
-    return 'Course(courseId: $courseId, categoryId: $categoryId, createdAt: $createdAt, creatorId: $creatorId, title: $title, price: $price, currency: $currency, rating: $rating, description: $description, isLiked: $isLiked, timesBought: $timesBought, courseImage: $courseImage)';
+    return 'Course(courseId: $courseId, categoryId: $categoryId, courseMins: $courseMins, numVideos: $numVideos, numSections: $numSections, createdAt: $createdAt, creatorId: $creatorId, title: $title, price: $price, currency: $currency, rating: $rating, description: $description, isLiked: $isLiked, timesBought: $timesBought, courseImage: $courseImage)';
   }
 
   @override
@@ -296,6 +344,12 @@ class _$courseImpl implements _course {
                 other.courseId == courseId) &&
             (identical(other.categoryId, categoryId) ||
                 other.categoryId == categoryId) &&
+            (identical(other.courseMins, courseMins) ||
+                other.courseMins == courseMins) &&
+            (identical(other.numVideos, numVideos) ||
+                other.numVideos == numVideos) &&
+            (identical(other.numSections, numSections) ||
+                other.numSections == numSections) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.creatorId, creatorId) ||
@@ -320,6 +374,9 @@ class _$courseImpl implements _course {
       runtimeType,
       courseId,
       categoryId,
+      courseMins,
+      numVideos,
+      numSections,
       createdAt,
       creatorId,
       title,
@@ -349,6 +406,9 @@ abstract class _course implements Course {
   const factory _course(
       {required final String courseId,
       required final String categoryId,
+      required final int courseMins,
+      required final int numVideos,
+      required final int numSections,
       required final String createdAt,
       required final String creatorId,
       required final String title,
@@ -366,6 +426,12 @@ abstract class _course implements Course {
   String get courseId;
   @override
   String get categoryId;
+  @override
+  int get courseMins;
+  @override
+  int get numVideos;
+  @override
+  int get numSections;
   @override
   String get createdAt;
   @override

@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/data/models/course.dart';
 
-import 'package:prideofknowledge/features/content/widgets/course_detail/about_course.dart';
-import 'package:prideofknowledge/features/content/widgets/course_detail/course_detail_header.dart';
-import 'package:prideofknowledge/features/content/widgets/course_detail/course_sections.dart';
-import 'package:prideofknowledge/features/content/widgets/course_detail/course_info.dart';
-import 'package:prideofknowledge/features/content/widgets/course_detail/segmented_slider.dart';
+import 'package:prideofknowledge/features/course_detail/views/widgets/about_course.dart';
+import 'package:prideofknowledge/features/course_detail/views/widgets/course_detail_header.dart';
+import 'package:prideofknowledge/features/course_detail/views/widgets/course_sections.dart';
+import 'package:prideofknowledge/features/course_detail/views/widgets/course_info.dart';
+import 'package:prideofknowledge/features/course_detail/views/widgets/segmented_slider.dart';
 
 class CourseDetailView extends StatelessWidget {
   const CourseDetailView({super.key, required this.course});
 
   final Course course;
 
-//TODO Will probably have to fix header
   @override
   Widget build(BuildContext context) {
     return Scaffold(

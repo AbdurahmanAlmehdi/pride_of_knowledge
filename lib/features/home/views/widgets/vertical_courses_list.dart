@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/data/models/course.dart';
-import 'package:prideofknowledge/features/home/views/widgets/course_tile.dart';
+import 'package:prideofknowledge/features/course_list/views/widgets/course_tile.dart';
 
 class VerticalCoursesList extends ConsumerWidget {
   const VerticalCoursesList({

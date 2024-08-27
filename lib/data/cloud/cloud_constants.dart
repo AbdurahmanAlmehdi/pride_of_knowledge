@@ -19,6 +19,9 @@ const isLikedFieldName = 'is_liked';
 const timesBoughtFieldName = 'times_bought';
 const courseImageFieldName = 'course_image';
 const createdAtFieldName = 'created_at';
+const numSectionsFieldName = 'num_sections';
+const numVideosFieldName = 'num_videos';
+const courseMinsFieldName = 'course_mins';
 
 // Creator Doc Fields
 
@@ -32,6 +35,7 @@ const coursesCreatedFieldName = 'courses_created';
 
 const courseIdFieldName = 'course_id';
 const sectionOrderFieldName = 'section_order';
+const sectionMinsFieldName = 'section_mins';
 
 // Videos Doc Fields
 

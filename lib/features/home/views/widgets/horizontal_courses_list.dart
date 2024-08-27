@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
 import 'package:prideofknowledge/data/models/course.dart';
-import 'package:prideofknowledge/features/content/course_detail_view.dart';
+import 'package:prideofknowledge/features/course_detail/views/course_detail_view.dart';
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 

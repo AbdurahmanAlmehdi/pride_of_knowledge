@@ -6,11 +6,12 @@ import 'package:prideofknowledge/constants/navigation_consts.dart';
 import 'package:prideofknowledge/features/home/services/controllers/home_controller.dart';
 import 'package:prideofknowledge/features/home/views/categories_view.dart';
 import 'package:prideofknowledge/features/home/views/owned_courses_view.dart';
-import 'package:prideofknowledge/features/home/views/favorites_view.dart';
+import 'package:prideofknowledge/features/favorites/views/favorites_view.dart';
 import 'package:prideofknowledge/features/home/views/home_view.dart';
 import 'package:prideofknowledge/features/home/services/providers/nav_provider.dart';
 import 'package:prideofknowledge/features/home/views/profile_view.dart';
 import 'package:prideofknowledge/features/home/views/widgets/bottom_nav_bar.dart';
+import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 
 class TabsView extends ConsumerWidget {
   const TabsView({super.key});
@@ -19,14 +20,12 @@ class TabsView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //Firestore data retrieval
     final categories = ref.watch(mainCategoriesControllerProvider);
-    final creators = ref.watch(topRatedCoursesControllerProvider);
 
     // Navigation providers
     final navIndex = ref.watch(navigationProvider);
     final navNotifier = ref.read(navigationProvider.notifier);
 
     Widget activeScreen = HomeView(
-      creators: creators,
       categories: categories,
     );
     //TODO Say Welcome UserName
@@ -102,7 +101,10 @@ class TabsView extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AColors.white,
-        title: Text(activeScreenTitle),
+        title: Text(
+          activeScreenTitle,
+          style: ATextTheme.appBarTitle,
+        ),
         actions: actions,
         leading: leading,
       ),

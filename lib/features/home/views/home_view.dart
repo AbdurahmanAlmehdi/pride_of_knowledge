@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:prideofknowledge/constants/argumets.dart';
 import 'package:prideofknowledge/constants/navigation_consts.dart';
 import 'package:prideofknowledge/constants/routes.dart';
 import 'package:prideofknowledge/constants/sizes.dart';
@@ -15,12 +16,10 @@ import 'package:prideofknowledge/utilities/dialogs/show_error_dialog.dart';
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 
 class HomeView extends ConsumerWidget {
-  final AsyncValue creators;
   final AsyncValue categories;
 
   const HomeView({
     super.key,
-    required this.creators,
     required this.categories,
   });
 
@@ -29,6 +28,7 @@ class HomeView extends ConsumerWidget {
     final screenWidth = AHelperFunctions.screenWidth(context);
     final featuredCourses = ref.watch(featuredCoursesControllerProvider);
     final topRatedCourses = ref.watch(topRatedCoursesControllerProvider);
+    final creators = ref.watch(topRatedCreatorsControllerProvider);
 
     return SingleChildScrollView(
         child: Column(
@@ -64,9 +64,13 @@ class HomeView extends ConsumerWidget {
                     ),
                     SizedBox(
                       height: 55,
-                      child: HorizontalCategoriesList(
-                        categories: categories,
-                      ),
+                      child: categories.isEmpty
+                          ? const Center(
+                              child: Text('No Categories Available'),
+                            )
+                          : HorizontalCategoriesList(
+                              categories: categories,
+                            ),
                     ),
                   ],
                 );
@@ -76,47 +80,52 @@ class HomeView extends ConsumerWidget {
                 return Container();
               },
               loading: () {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return const SizedBox(
+                  height: 55,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 );
               },
             ),
             featuredCourses.when(
               data: (featuredCourses) {
-                if (featuredCourses.isEmpty) {
-                  return const Center(
-                    child: Text(
-                      'No Courses Availible',
+                return Column(
+                  children: [
+                    TitleSeeAllRow(
+                      title: 'Trending Courses',
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(coursesListRoute, arguments: {
+                          Arguments.courses: featuredCourses,
+                          Arguments.title: 'Trending Courses',
+                        });
+                      },
                     ),
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      TitleSeeAllRow(
-                        title: 'Trending Courses',
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(coursesListRoute,
-                              arguments: featuredCourses);
-                        },
-                      ),
-                      SizedBox(
-                        height: 200,
-                        child: HorizontalCourseView(
-                          courses: featuredCourses,
-                          screenWidth: screenWidth,
-                        ),
-                      ),
-                    ],
-                  );
-                }
+                    SizedBox(
+                      height: 200,
+                      child: featuredCourses.isEmpty
+                          ? const Center(
+                              child: Text('No Trending Courses Available'),
+                            )
+                          : HorizontalCourseView(
+                              courses: featuredCourses,
+                              screenWidth: screenWidth,
+                            ),
+                    ),
+                  ],
+                );
               },
               error: (error, stackTrace) {
                 showErrorDialog(context, 'Error Retrieving Courses');
                 return Container();
               },
               loading: () {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return const SizedBox(
+                  height: 200,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 );
               },
             ),
@@ -130,20 +139,27 @@ class HomeView extends ConsumerWidget {
                     ),
                     SizedBox(
                       height: 100,
-                      child: HorizontalCreatorsList(
-                        creators: creators,
-                      ),
+                      child: creators.isEmpty
+                          ? const Center(
+                              child: Text('No Creators Available'),
+                            )
+                          : HorizontalCreatorsList(
+                              creators: creators,
+                            ),
                     ),
                   ],
                 );
               },
               error: (error, stackTrace) {
-                showErrorDialog(context, 'No Creators Available');
+                showErrorDialog(context, 'Error Retreiving Creators');
                 return Container();
               },
               loading: () {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return const SizedBox(
+                  height: 100,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 );
               },
             ),
@@ -151,24 +167,24 @@ class HomeView extends ConsumerWidget {
         ),
         topRatedCourses.when(
           data: (topRatedCourses) {
-            if (topRatedCourses.isEmpty) {
-              return const Text(
-                'No Courses Availible',
-              );
-            } else {
-              return Column(children: [
-                TitleSeeAllRow(
-                  title: 'Top Rated Courses',
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(coursesListRoute,
-                        arguments: topRatedCourses);
-                  },
-                ),
-                VerticalCoursesList(
-                  courses: topRatedCourses,
-                ),
-              ]);
-            }
+            return Column(children: [
+              TitleSeeAllRow(
+                title: 'Top Rated Courses',
+                onPressed: () {
+                  Navigator.of(context).pushNamed(coursesListRoute, arguments: {
+                    'courses': topRatedCourses,
+                    'title': 'Top Rated Courses',
+                  });
+                },
+              ),
+              topRatedCourses.isEmpty
+                  ? const Center(
+                      child: Text('No Courses Availible'),
+                    )
+                  : VerticalCoursesList(
+                      courses: topRatedCourses,
+                    ),
+            ]);
           },
           error: (error, stackTrace) {
             return const Text(
@@ -176,7 +192,11 @@ class HomeView extends ConsumerWidget {
             );
           },
           loading: () {
-            return const Center(child: CircularProgressIndicator());
+            return const SizedBox(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
           },
         ),
       ],

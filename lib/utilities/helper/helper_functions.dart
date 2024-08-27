@@ -26,7 +26,10 @@ class AHelperFunctions {
     final hours = minutes ~/ 60;
     final mins = minutes % 60;
 
-    final time = '$hours:${mins > 9 ? mins : '0$mins'} hours';
+    final time = minutes < 60
+        ? '$minutes Mins'
+        : '${hours != 0 ? '$hours' : ''}${mins >= 30 ? '.5' : '.0'} Hours';
+
     return time;
   }
 

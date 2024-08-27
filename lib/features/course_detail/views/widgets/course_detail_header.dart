@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
 import 'package:prideofknowledge/data/models/course.dart';
+import 'package:prideofknowledge/features/favorites/controllers/favorites_controller.dart';
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 
@@ -53,21 +54,33 @@ class CourseDetailHeader extends ConsumerWidget {
                     ),
                   ),
                   Container(
-                    width: 45,
-                    height: 45,
-                    decoration: BoxDecoration(
-                      // border: Border.all(color: AColors.black),
-                      color: AColors.white,
-                      borderRadius: BorderRadius.circular(22.5),
-                    ),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.favorite),
-                      color: AColors.primary,
-                      // color: Colors.red,
-                      iconSize: 20,
-                    ),
-                  ),
+                      width: 45,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        // border: Border.all(color: AColors.black),
+                        color: AColors.white,
+                        borderRadius: BorderRadius.circular(22.5),
+                      ),
+                      child: Consumer(
+                        builder: (_, ref, ___) {
+                          final isFavorite = ref
+                              .watch(favoritesControllerProvider.notifier)
+                              .isFavorite(course);
+                          return IconButton(
+                            onPressed: () {
+                              ref
+                                  .refresh(favoritesControllerProvider.notifier)
+                                  .toggleFavorite(course);
+                            },
+                            icon: Icon(isFavorite
+                                ? Icons.favorite
+                                : Icons.favorite_outline),
+                            color: Colors.red,
+                            // color: Colors.red,
+                            iconSize: 20,
+                          );
+                        },
+                      )),
                 ],
               ),
             ),

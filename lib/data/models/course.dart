@@ -10,6 +10,9 @@ class Course with _$Course {
   const factory Course(
       {required String courseId,
       required String categoryId,
+      required int courseMins,
+      required int numVideos,
+      required int numSections,
       required String createdAt,
       required String creatorId,
       required String title,
@@ -39,6 +42,9 @@ class Course with _$Course {
       isLiked: json[isLikedFieldName] as bool? ?? false,
       timesBought: (json[timesBoughtFieldName] as num).toInt(),
       courseImage: json[courseImageFieldName],
+      courseMins: (json[courseMinsFieldName] as num).toInt(),
+      numSections: (json[numSectionsFieldName] as num).toInt(),
+      numVideos: (json[numVideosFieldName] as num).toInt(),
     );
   }
 }

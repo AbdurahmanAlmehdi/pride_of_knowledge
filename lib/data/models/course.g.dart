@@ -9,6 +9,9 @@ part of 'course.dart';
 _$courseImpl _$$courseImplFromJson(Map<String, dynamic> json) => _$courseImpl(
       courseId: json['courseId'] as String,
       categoryId: json['categoryId'] as String,
+      courseMins: (json['courseMins'] as num).toInt(),
+      numVideos: (json['numVideos'] as num).toInt(),
+      numSections: (json['numSections'] as num).toInt(),
       createdAt: json['createdAt'] as String,
       creatorId: json['creatorId'] as String,
       title: json['title'] as String,
@@ -25,6 +28,9 @@ Map<String, dynamic> _$$courseImplToJson(_$courseImpl instance) =>
     <String, dynamic>{
       'courseId': instance.courseId,
       'categoryId': instance.categoryId,
+      'courseMins': instance.courseMins,
+      'numVideos': instance.numVideos,
+      'numSections': instance.numSections,
       'createdAt': instance.createdAt,
       'creatorId': instance.creatorId,
       'title': instance.title,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/data/models/course.dart';
-import 'package:prideofknowledge/features/home/views/widgets/course_tile.dart';
-import 'package:prideofknowledge/features/home/views/widgets/search_field.dart';
+import 'package:prideofknowledge/features/course_list/views/widgets/course_tile.dart';
+import 'package:prideofknowledge/features/course_list/views/widgets/search_field.dart';
+import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 
 class CoursesListView extends StatelessWidget {
   const CoursesListView({
@@ -23,7 +23,10 @@ class CoursesListView extends StatelessWidget {
     return Scaffold(
       appBar: showAppBar
           ? AppBar(
-              title: Text(title ?? ''),
+              title: Text(
+                title ?? '',
+                style: ATextTheme.appBarTitle,
+              ),
               actions: [
                 IconButton(
                   onPressed: () {},
@@ -40,15 +43,12 @@ class CoursesListView extends StatelessWidget {
                 ? const Center(
                     child: Text('Error'),
                   )
-                : Consumer(
-                    builder: (context, ref, child) {
-                      return ListView.builder(
-                        itemCount: courses!.length,
-                        itemBuilder: (context, index) {
-                          final course = courses![index];
-                          return CourseTile(course: course);
-                        },
-                      );
+                : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: courses!.length,
+                    itemBuilder: (context, index) {
+                      final course = courses![index];
+                      return CourseTile(course: course);
                     },
                   ),
           ],
