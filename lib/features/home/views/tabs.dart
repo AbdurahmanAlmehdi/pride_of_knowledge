@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
 import 'package:prideofknowledge/constants/image_strings.dart';
 import 'package:prideofknowledge/constants/navigation_consts.dart';
+import 'package:prideofknowledge/constants/routes.dart';
+import 'package:prideofknowledge/features/authentication/providers/user_provider.dart';
 import 'package:prideofknowledge/features/home/services/controllers/home_controller.dart';
 import 'package:prideofknowledge/features/home/views/categories_view.dart';
 import 'package:prideofknowledge/features/home/views/owned_courses_view.dart';
@@ -11,6 +13,7 @@ import 'package:prideofknowledge/features/home/views/home_view.dart';
 import 'package:prideofknowledge/features/home/services/providers/nav_provider.dart';
 import 'package:prideofknowledge/features/home/views/profile_view.dart';
 import 'package:prideofknowledge/features/home/views/widgets/bottom_nav_bar.dart';
+import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 
 class TabsView extends ConsumerWidget {
@@ -21,6 +24,8 @@ class TabsView extends ConsumerWidget {
     //Firestore data retrieval
     final categories = ref.watch(mainCategoriesControllerProvider);
 
+    //Current User
+    final currentUser = ref.watch(userProvider);
     // Navigation providers
     final navIndex = ref.watch(navigationProvider);
     final navNotifier = ref.read(navigationProvider.notifier);
@@ -28,8 +33,8 @@ class TabsView extends ConsumerWidget {
     Widget activeScreen = HomeView(
       categories: categories,
     );
-    //TODO Say Welcome UserName
-    String activeScreenTitle = 'Welcome Bob';
+    String activeScreenTitle =
+        'Hello ${AHelperFunctions.getFirstWord(currentUser.fullName ?? 'Guest')}';
     Widget? leading;
     Widget? bottomNavigationBar =
         ABottomNavigationBar(index: navNotifier.navState);
@@ -37,12 +42,16 @@ class TabsView extends ConsumerWidget {
     List<Widget>? actions = [
       IconButton(
         iconSize: 25,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed(cartRoute);
+        },
         icon: const Icon(Icons.shopping_cart_outlined),
       ),
       IconButton(
         iconSize: 20,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed(walletRoute);
+        },
         icon: const Icon(Icons.account_balance_wallet_outlined),
       ),
       InkWell(

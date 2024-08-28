@@ -10,10 +10,12 @@ import 'package:prideofknowledge/data/models/course.dart';
 import 'package:prideofknowledge/features/authentication/services/auth/auth_service.dart';
 
 import 'package:prideofknowledge/features/authentication/services/bloc/auth_bloc.dart';
+import 'package:prideofknowledge/features/cart/views/cart_view.dart';
 import 'package:prideofknowledge/features/course_detail/views/course_detail_view.dart';
 import 'package:prideofknowledge/features/course_list/views/courses_list_view.dart';
 import 'package:prideofknowledge/features/creator_details/views/creator_detail_view.dart';
 import 'package:prideofknowledge/features/home/views/profile_view.dart';
+import 'package:prideofknowledge/features/wallet/views/wallet_view.dart';
 
 import 'package:prideofknowledge/utilities/theme/theme.dart';
 
@@ -60,6 +62,8 @@ void main() async {
           },
           routes: {
             profileRoute: (context) => const ProfileView(),
+            walletRoute: (context) => const WalletView(),
+            cartRoute: (context) => const CartView(),
           },
           home: const MyApp(),
         ),

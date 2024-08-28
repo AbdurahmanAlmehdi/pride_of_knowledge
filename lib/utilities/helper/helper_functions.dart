@@ -35,6 +35,10 @@ class AHelperFunctions {
 
   static String getFirstWord(String input) {
     List<String> words = input.split(' ');
-    return words.isNotEmpty ? words[0] : '';
+    String firstLetter = words[0].split('').first.toUpperCase();
+    String restLetters =
+        words[0].split('').getRange(1, words[0].length).join('');
+    String word = [firstLetter, restLetters].join();
+    return word;
   }
 }

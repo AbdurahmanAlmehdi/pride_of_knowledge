@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/features/authentication/services/bloc/auth_bloc.dart';
 import 'package:prideofknowledge/features/authentication/services/bloc/auth_event.dart';
 import 'package:prideofknowledge/features/authentication/services/bloc/auth_state.dart';
@@ -11,12 +12,12 @@ import 'package:prideofknowledge/features/authentication/views/verify_email_view
 import 'package:prideofknowledge/features/home/views/tabs.dart';
 import 'package:prideofknowledge/utilities/helper/loading/loading.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    context.read<AuthBloc>().add(const AuthEventInitialize());
+  Widget build(BuildContext context, WidgetRef ref) {
+    context.read<AuthBloc>().add(AuthEventInitialize(ref));
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state.isLoading) {

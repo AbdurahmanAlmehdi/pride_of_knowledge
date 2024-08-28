@@ -24,6 +24,16 @@ class FirebaseCloudStorage {
     }
   }
 
+  Future<AuthUser> retreiveUser(AuthUser user) async {
+    try {
+      final newUser = await users.doc(user.uid).get();
+
+      return AuthUser.fromFirestore(newUser);
+    } on Exception {
+      throw CouldNotRetrieveUserCloudException();
+    }
+  }
+
   void createCourse(Course course) async {
     try {
       await courses.doc().set({

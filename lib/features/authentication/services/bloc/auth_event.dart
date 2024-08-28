@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 @immutable
 abstract class AuthEvent {
@@ -6,7 +7,8 @@ abstract class AuthEvent {
 }
 
 class AuthEventInitialize extends AuthEvent {
-  const AuthEventInitialize();
+  final WidgetRef ref;
+  const AuthEventInitialize(this.ref);
 }
 
 class AuthEventLogIn extends AuthEvent {

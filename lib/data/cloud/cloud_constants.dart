@@ -26,7 +26,7 @@ const courseMinsFieldName = 'course_mins';
 // Creator Doc Fields
 
 const nameFieldName = 'name';
-const specialtyFieldName = 'specialty';
+const specialtyFieldName = 'speciality';
 const facebookLinkFieldName = 'facebook_link';
 const imageFieldName = 'image';
 const coursesCreatedFieldName = 'courses_created';

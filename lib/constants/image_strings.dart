@@ -18,4 +18,11 @@ class AImages {
   static const slide1 = "assets/images/home/slide1.png";
 
   static const noFavorites = "assets/images/home/Empty.png";
+
+  static const facebookIcon = 'assets/images/logos/facebook.png';
+  static const instaIcon = 'assets/images/logos/insta.png';
+  static const xIcon = 'assets/images/logos/twitter.png';
+
+  static const error = "assets/images/home/error.png";
+  static const noCourses = "assets/images/home/NoCourses.png";
 }

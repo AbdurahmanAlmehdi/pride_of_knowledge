@@ -32,25 +32,18 @@ class HorizontalCreatorsList extends StatelessWidget {
                 borderRadius: BorderRadius.circular(25),
                 child: Container(
                   alignment: Alignment.center,
-                  height: 72,
-                  width: 72,
-                  decoration: const BoxDecoration(
-                    color: AColors.textWhite,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 65,
-                    width: 65,
-                    decoration: const BoxDecoration(
+                  height: 74,
+                  width: 74,
+                  decoration: BoxDecoration(
                       color: AColors.primary,
-                      shape: BoxShape.circle,
-                    ),
-                    child: ClipOval(
-                      child: Image(
-                        image: NetworkImage(creator.image),
-                        fit: BoxFit.contain,
-                      ),
+                      borderRadius: BorderRadius.circular(37)),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(35),
+                    child: Image(
+                      image: NetworkImage(creator.image),
+                      fit: BoxFit.cover,
+                      height: 70,
+                      width: 70,
                     ),
                   ),
                 ),
