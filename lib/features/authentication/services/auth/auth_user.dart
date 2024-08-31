@@ -9,12 +9,18 @@ class AuthUser {
   final String? fullName;
   final String? username;
   final String? phoneNum;
+  final List<String>? purchasedCourses;
+  final List<String>? cartItems;
+  final int? balance;
 
   AuthUser(
       {this.fullName,
       this.username,
       this.phoneNum,
       this.email,
+      this.purchasedCourses,
+      this.cartItems,
+      this.balance,
       required this.uid,
       required this.isEmailVerified});
 
@@ -29,6 +35,9 @@ class AuthUser {
       fullName: json[fullnameFieldName],
       phoneNum: json[phoneNumFieldName],
       username: json[usernameFieldName],
+      purchasedCourses: json[purchasedCoursesFieldName] ?? [],
+      cartItems: json[cartItemsFieldName] ?? [],
+      balance: json[balanceFieldName] ?? 0,
     );
   }
   factory AuthUser.fromFirestore(DocumentSnapshot<Map<String, dynamic>> json) {
@@ -39,6 +48,13 @@ class AuthUser {
       fullName: json[fullnameFieldName] ?? 'unknown',
       phoneNum: json[phoneNumFieldName] ?? 'unknown',
       username: json[usernameFieldName] ?? 'unknown',
+      balance: (json[balanceFieldName] ?? 0 as num).toInt(),
+      purchasedCourses: (json[purchasedCoursesFieldName] as List<dynamic>)
+          .map((e) => e.toString())
+          .toList(),
+      cartItems: (json[cartItemsFieldName] as List<dynamic>)
+          .map((e) => e.toString())
+          .toList(),
     );
   }
   Map<String, dynamic> toJson() {
@@ -48,6 +64,9 @@ class AuthUser {
       fullnameFieldName: fullName,
       phoneNumFieldName: phoneNum,
       usernameFieldName: username,
+      purchasedCoursesFieldName: purchasedCourses,
+      cartItemsFieldName: cartItems,
+      balanceFieldName: balance,
     };
   }
 }

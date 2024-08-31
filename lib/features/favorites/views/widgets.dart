@@ -23,7 +23,7 @@ class NoFavorites extends StatelessWidget {
           ),
           Text(
             'You have no Favorites',
-            style: ATextTheme.smallHeading.copyWith(color: AColors.secondary),
+            style: ATextTheme.bigSubHeading.copyWith(color: AColors.secondary),
           ),
         ],
       ),

@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
 import 'package:prideofknowledge/data/models/course.dart';
 import 'package:prideofknowledge/features/favorites/controllers/favorites_controller.dart';
-import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
+import 'package:prideofknowledge/utilities/widgets/global_widgets.dart';
 
 class CourseDetailHeader extends ConsumerWidget {
   const CourseDetailHeader({
@@ -40,7 +40,6 @@ class CourseDetailHeader extends ConsumerWidget {
                     width: 45,
                     height: 45,
                     decoration: BoxDecoration(
-                      // border: Border.all(color: AColors.black),
                       color: AColors.white,
                       borderRadius: BorderRadius.circular(22.5),
                     ),
@@ -91,21 +90,21 @@ class CourseDetailHeader extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Flexible(
+                  IntrinsicWidth(
                     child: Container(
                       height: 30,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                           color: AColors.primary),
                       child: Center(
-                        child: Text(
-                          'By: ${AHelperFunctions.getFirstWord(course.creatorId)}     ',
-                          textAlign: TextAlign.center,
-                          style: ATextTheme.smallSubHeading
-                              .copyWith(color: AColors.white, fontSize: 18),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
+                          child: CreatorInfo(
+                        addSpace: true,
+                        creatorId: course.creatorId,
+                        infoType: CreatorInfoType.name,
+                        style: ATextTheme.smallSubHeading
+                            .copyWith(color: AColors.white, fontSize: 18),
+                        overflow: TextOverflow.ellipsis,
+                      )),
                     ),
                   ),
                   const SizedBox(

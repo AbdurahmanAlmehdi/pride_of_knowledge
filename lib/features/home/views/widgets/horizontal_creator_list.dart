@@ -27,7 +27,7 @@ class HorizontalCreatorsList extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.pushNamed(context, creatorDetailRoute,
-                      arguments: {'creators': creator});
+                      arguments: creator);
                 },
                 borderRadius: BorderRadius.circular(25),
                 child: Container(

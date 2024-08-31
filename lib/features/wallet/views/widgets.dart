@@ -40,20 +40,6 @@ class CheckList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Prepaid Card',
-              style: ATextTheme.smallSubHeading,
-            ),
-            Checkbox(
-              value: false,
-              onChanged: (value) {},
-              activeColor: Colors.blue,
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
               'MobiCash',
               style: ATextTheme.smallSubHeading,
             ),

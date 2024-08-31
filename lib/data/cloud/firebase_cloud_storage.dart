@@ -18,6 +18,7 @@ class FirebaseCloudStorage {
         phoneNumFieldName: user.phoneNum,
         fullnameFieldName: user.fullName,
         usernameFieldName: user.username,
+        purchasedCoursesFieldName: [],
       });
     } on Exception {
       throw CouldNotCreateDocCloudException();
@@ -27,7 +28,6 @@ class FirebaseCloudStorage {
   Future<AuthUser> retreiveUser(AuthUser user) async {
     try {
       final newUser = await users.doc(user.uid).get();
-
       return AuthUser.fromFirestore(newUser);
     } on Exception {
       throw CouldNotRetrieveUserCloudException();

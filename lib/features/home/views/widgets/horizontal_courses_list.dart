@@ -5,6 +5,7 @@ import 'package:prideofknowledge/data/models/course.dart';
 import 'package:prideofknowledge/features/course_detail/views/course_detail_view.dart';
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
+import 'package:prideofknowledge/utilities/widgets/global_widgets.dart';
 
 class HorizontalCourseView extends ConsumerWidget {
   const HorizontalCourseView({
@@ -14,7 +15,7 @@ class HorizontalCourseView extends ConsumerWidget {
   });
 
   final double screenWidth;
-  final Iterable<Course> courses;
+  final List<Course> courses;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,11 +23,12 @@ class HorizontalCourseView extends ConsumerWidget {
       itemCount: courses.length > 8 ? 8 : courses.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
+        final course = courses[index];
         return InkWell(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(
               builder: (context) {
-                return CourseDetailView(course: courses.elementAt(index));
+                return CourseDetailView(course: course);
               },
             ));
           },
@@ -41,7 +43,7 @@ class HorizontalCourseView extends ConsumerWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image(
-                      image: NetworkImage(courses.elementAt(index).courseImage),
+                      image: NetworkImage(course.courseImage),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -55,19 +57,18 @@ class HorizontalCourseView extends ConsumerWidget {
                       children: [
                         Flexible(
                           child: Container(
-                            height: 20,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: AColors.primary),
-                            child: Text(
-                              //TODO get creator data
-                              courses.elementAt(index).creatorId,
-                              textAlign: TextAlign.center,
-                              style: ATextTheme.bigBody
-                                  .copyWith(color: AColors.white),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
+                              height: 20,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: AColors.primary),
+                              child: CreatorInfo(
+                                creatorId: course.creatorId,
+                                infoType: CreatorInfoType.name,
+                                style: ATextTheme.bigBody
+                                    .copyWith(color: AColors.white),
+                                overflow: TextOverflow.ellipsis,
+                                addSpace: true,
+                              )),
                         ),
                         const SizedBox(
                           width: 50,

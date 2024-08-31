@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:prideofknowledge/constants/argumets.dart';
 import 'package:prideofknowledge/constants/colors.dart';
-
+import 'package:prideofknowledge/constants/routes.dart';
+import 'package:prideofknowledge/data/models/course.dart';
 import 'package:prideofknowledge/features/course_detail/services/controllers/section_controller.dart';
 import 'package:prideofknowledge/features/course_detail/services/controllers/video_controller.dart';
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
@@ -11,28 +12,27 @@ import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
 class CourseSections extends ConsumerWidget {
   const CourseSections({
     super.key,
-    required this.courseId,
+    required this.course,
   });
 
-  final String courseId;
+  final Course course;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sections = ref.watch(sectionProvider(courseId));
+    final sections =
+        ref.watch(CourseSectionsControllerProvider(course.courseId));
 
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 14),
       children: [
-        //TODO get video count
         Text(
-          // '$courseSectionCount Sections • ${getVideoCount(sections)} Lectures',
-          'Sections',
+          '${course.numSections} Sections • ${course.numVideos} Lectures',
           style: ATextTheme.smallSubHeading.copyWith(color: AColors.black),
           textAlign: TextAlign.start,
         ),
         sections.when(
           error: (error, stackTrace) {
-            return const Text('Error Retreiving Content1');
+            return const Center(child: Text('Error Retreiving Sections'));
           },
           loading: () => const Center(
             child: CircularProgressIndicator(),
@@ -45,7 +45,9 @@ class CourseSections extends ConsumerWidget {
               shrinkWrap: true,
               itemBuilder: (context, sectionIndex) {
                 final section = sectionData[sectionIndex];
-                final videos = ref.watch(videoProvider(section.sectionId));
+                final videos =
+                    ref.watch(videosControllerProvider(section.sectionId));
+
                 return Column(
                   children: [
                     Row(
@@ -56,8 +58,7 @@ class CourseSections extends ConsumerWidget {
                           style: ATextTheme.smallSubHeading,
                         ),
                         Text(
-                          // TODO get course mins
-                          AHelperFunctions.toHours(60),
+                          AHelperFunctions.toHours(course.courseMins),
                           style: ATextTheme.smallSubHeading,
                         )
                       ],
@@ -65,7 +66,7 @@ class CourseSections extends ConsumerWidget {
                     videos.when(
                       data: (videoData) {
                         return ListView.separated(
-                          separatorBuilder: (context, videoIndex) {
+                          separatorBuilder: (context, _) {
                             return Container(
                               height: 15,
                               color: Colors.transparent,
@@ -108,7 +109,13 @@ class CourseSections extends ConsumerWidget {
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.pushNamed(context, videoRoute,
+                                            arguments: {
+                                              Arguments.videoTitle: video.title,
+                                              Arguments.url: video.videoUrl,
+                                            });
+                                      },
                                       icon: const Icon(Icons.play_arrow),
                                     ),
                                   ),
@@ -133,9 +140,17 @@ class CourseSections extends ConsumerWidget {
                           },
                         );
                       },
-                      error: (error, stackTrace) =>
-                          const Text('Error Retreiving Content2'),
-                      loading: () => const CircularProgressIndicator(),
+                      error: (error, stackTrace) => SizedBox(
+                          height: 95,
+                          child: Center(
+                              child: Text(
+                            'Error Retreiving Videos',
+                            style: ATextTheme.smallSubHeading
+                                .copyWith(color: AColors.textPrimary),
+                          ))),
+                      loading: () => const SizedBox(
+                          height: 95,
+                          child: Center(child: LinearProgressIndicator())),
                     ),
                   ],
                 );

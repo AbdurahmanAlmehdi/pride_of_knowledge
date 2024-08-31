@@ -31,10 +31,27 @@ class Creator {
     );
   }
 
-  factory Creator.fromSnapshot(
+  factory Creator.fromQuerySnapshot(
       QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
     final doc = snapshot.data();
     if (doc.isNotEmpty) {
+      return Creator(
+        creatorId: snapshot.id,
+        rating: (doc[ratingFieldName] as num).toDouble(),
+        coursesCreated: doc[coursesCreatedFieldName] ?? 0,
+        image: doc[imageFieldName] ?? '',
+        name: doc[nameFieldName] ?? 'Unknown',
+        specialty: doc[specialtyFieldName] ?? 'none',
+        facebookLink: doc[facebookLinkFieldName] ?? 'null',
+      );
+    } else {
+      return Creator.empty();
+    }
+  }
+  factory Creator.fromDocSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> snapshot) {
+    final doc = snapshot.data();
+    if (doc != null) {
       return Creator(
         creatorId: snapshot.id,
         rating: (doc[ratingFieldName] as num).toDouble(),

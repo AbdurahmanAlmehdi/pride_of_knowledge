@@ -4,4 +4,6 @@ class Arguments {
   static const title = 'title';
   static const showAppBar = 'showAppBar';
   static const showSearch = 'showSearch';
+  static const videoTitle = 'videoTitle';
+  static const url = 'url';
 }

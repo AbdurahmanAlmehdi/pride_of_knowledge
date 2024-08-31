@@ -6,6 +6,7 @@ import 'package:prideofknowledge/app.dart';
 import 'package:prideofknowledge/constants/argumets.dart';
 import 'package:prideofknowledge/constants/routes.dart';
 import 'package:prideofknowledge/data/models/course.dart';
+import 'package:prideofknowledge/data/models/creator.dart';
 
 import 'package:prideofknowledge/features/authentication/services/auth/auth_service.dart';
 
@@ -15,6 +16,7 @@ import 'package:prideofknowledge/features/course_detail/views/course_detail_view
 import 'package:prideofknowledge/features/course_list/views/courses_list_view.dart';
 import 'package:prideofknowledge/features/creator_details/views/creator_detail_view.dart';
 import 'package:prideofknowledge/features/home/views/profile_view.dart';
+import 'package:prideofknowledge/features/video/views/video_view.dart';
 import 'package:prideofknowledge/features/wallet/views/wallet_view.dart';
 
 import 'package:prideofknowledge/utilities/theme/theme.dart';
@@ -49,11 +51,20 @@ void main() async {
                 ),
               );
             } else if (settings.name == creatorDetailRoute) {
-              final args = settings.arguments as Map;
+              final args = settings.arguments as Creator;
               return PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) =>
                     CreatorDetailView(
-                  creator: args[Arguments.creators],
+                  creator: args,
+                ),
+              );
+            } else if (settings.name == videoRoute) {
+              final args = settings.arguments as Map;
+              return PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    VideoView(
+                  url: args[Arguments.url],
+                  videoTitle: args[Arguments.videoTitle],
                 ),
               );
             } else {

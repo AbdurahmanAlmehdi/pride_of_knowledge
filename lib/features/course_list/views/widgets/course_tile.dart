@@ -2,18 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prideofknowledge/constants/colors.dart';
 import 'package:prideofknowledge/data/models/course.dart';
+import 'package:prideofknowledge/features/authentication/providers/user_provider.dart';
+import 'package:prideofknowledge/features/authentication/services/auth/firebase_auth_provider.dart';
+import 'package:prideofknowledge/features/cart/controllers/cart_controller.dart';
 import 'package:prideofknowledge/features/course_detail/views/course_detail_view.dart';
 import 'package:prideofknowledge/features/favorites/controllers/favorites_controller.dart';
 import 'package:prideofknowledge/utilities/helper/helper_functions.dart';
 import 'package:prideofknowledge/utilities/theme/widget_themes/text_theme.dart';
+import 'package:prideofknowledge/utilities/widgets/global_widgets.dart';
 
 class CourseTile extends StatelessWidget {
   const CourseTile({
     super.key,
+    this.isCartItem = false,
     required this.course,
   });
 
   final Course course;
+  final bool isCartItem;
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +75,10 @@ class CourseTile extends StatelessWidget {
                       ),
                       SizedBox(
                         width: 180,
-                        child: Text(
-                          // TODO Change to creator name
-                          "Created By: ${course.creatorId}",
-                          softWrap: true,
-                          maxLines: 2,
-                          overflow: TextOverflow.visible,
+                        child: CreatorInfo(
+                          creatorId: course.creatorId,
+                          infoType: CreatorInfoType.name,
+                          maxLines: 1,
                           style: ATextTheme.bigBody.copyWith(
                             color: AColors.textPrimary,
                           ),
@@ -85,7 +89,6 @@ class CourseTile extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          // TODO Change to real minutes
                           Text(
                             AHelperFunctions.toHours(course.courseMins),
                             style: ATextTheme.bigBody,
@@ -124,16 +127,28 @@ class CourseTile extends StatelessWidget {
                           final isFavorite = favorites.contains(course);
                           return IconButton(
                             onPressed: () {
-                              ref
-                                  .read(favoritesControllerProvider.notifier)
-                                  .toggleFavorite(course);
+                              if (isCartItem) {
+                                ref.read(removeCartItemControllerProvider(
+                                    course.courseId));
+                                ref
+                                    .read(userProvider.notifier)
+                                    .retrieveCurrentUserFirebase(
+                                        FirebaseAuthProvider());
+                              } else {
+                                ref
+                                    .read(favoritesControllerProvider.notifier)
+                                    .toggleFavorite(course);
+                              }
                             },
-                            icon: Icon(
-                              isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              size: 20,
-                            ),
+                            icon: isCartItem
+                                ? const Icon(Icons.close)
+                                : Icon(
+                                    isFavorite
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    size: 20,
+                                    color: Colors.red,
+                                  ),
                           );
                         },
                       ),

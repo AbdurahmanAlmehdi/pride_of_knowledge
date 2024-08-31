@@ -50,6 +50,9 @@ dependencies:
   freezed_annotation: ^2.4.4
   riverpod_generator: ^2.4.0
   riverpod_annotation: ^2.3.5
+  video_player: ^2.9.1
+  chewie: ^1.8.3
+  info_toast: ^1.0.0
   
   
 

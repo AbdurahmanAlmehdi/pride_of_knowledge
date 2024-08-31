@@ -45,7 +45,7 @@ class CourseDetailView extends StatelessWidget {
                   );
                 } else {
                   return CourseSections(
-                    courseId: course.courseId,
+                    course: course,
                   );
                 }
               },

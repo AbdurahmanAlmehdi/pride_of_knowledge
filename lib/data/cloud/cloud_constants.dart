@@ -5,6 +5,9 @@ const phoneNumFieldName = 'phone-number';
 const usernameFieldName = 'username';
 const fullnameFieldName = 'fullname';
 const emailFieldName = 'email';
+const purchasedCoursesFieldName = 'purchased_courses';
+const cartItemsFieldName = 'cart_items';
+const balanceFieldName = 'balance';
 
 // Courses Doc Fields
 
@@ -42,7 +45,7 @@ const sectionMinsFieldName = 'section_mins';
 const sectionIdFieldName = 'section_id';
 const videoUrlFieldName = 'video_url';
 const videoOrderFieldName = 'video_order';
-const videoLenghtFieldName = 'video_lenght';
+const videoLenghtFieldName = 'video_length';
 
 // Collection Constants
 const usersCollection = 'users';

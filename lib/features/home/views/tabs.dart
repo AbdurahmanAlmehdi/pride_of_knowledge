@@ -7,7 +7,7 @@ import 'package:prideofknowledge/constants/routes.dart';
 import 'package:prideofknowledge/features/authentication/providers/user_provider.dart';
 import 'package:prideofknowledge/features/home/services/controllers/home_controller.dart';
 import 'package:prideofknowledge/features/home/views/categories_view.dart';
-import 'package:prideofknowledge/features/home/views/owned_courses_view.dart';
+import 'package:prideofknowledge/features/purchases/views/purchased_courses_view.dart';
 import 'package:prideofknowledge/features/favorites/views/favorites_view.dart';
 import 'package:prideofknowledge/features/home/views/home_view.dart';
 import 'package:prideofknowledge/features/home/services/providers/nav_provider.dart';
@@ -72,7 +72,9 @@ class TabsView extends ConsumerWidget {
     if (navIndex != ANavigationIndex.homeViewIndex) {
       switch (navIndex) {
         case ANavigationIndex.courseViewIndex:
-          activeScreen = const OwnedCoursesView();
+          activeScreen = PurchasedCoursesView(
+            courseIds: currentUser.purchasedCourses ?? [],
+          );
           activeScreenTitle = 'My Courses';
           bottomNavigationBar = ABottomNavigationBar(index: navIndex);
           break;

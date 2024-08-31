@@ -18,7 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         deviceStorage.writeIfNull('isFirstTime', true);
         if (deviceStorage.read('isFirstTime') == false) {
           final user = provider.currentuser;
-          ref.read(userProvider.notifier).retrieveCurrentUser(provider);
+          ref.read(userProvider.notifier).retrieveCurrentUserFirebase(provider);
           if (user == null) {
             emit(const AuthStateLoggedOut(exception: null, isLoading: false));
           } else if (!user.isEmailVerified) {
